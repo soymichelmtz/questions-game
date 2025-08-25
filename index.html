@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Juego de Preguntas para Parejas</title>
+    <meta name="description" content="Juego de preguntas aleatorias para parejas: categorías, favoritos e importación/exportación." />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="manifest" href="./manifest.json" />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%238b5cf6'/%3E%3Ctext x='50%25' y='50%25' dy='.35em' text-anchor='middle' font-family='Inter,Arial' font-weight='700' font-size='28' fill='white'%3EP%3C/text%3E%3C/svg%3E" />
+  <link rel="alternate icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+qkEsAAAAASUVORK5CYII=" />
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <header class="app-header">
+      <h1>Preguntas para Parejas</h1>
+      <p class="subtitle">Exploren, conversen y conéctense</p>
+    </header>
+
+    <main class="container">
+      <section id="sessionRibbon" class="session-ribbon" hidden>
+        <div class="turn">Turno: <strong id="turnName">—</strong></div>
+        <div class="scores">
+          <span id="score1" class="badge">0</span>
+          <span id="score2" class="badge">0</span>
+        </div>
+      </section>
+
+      <section class="controls">
+        <div class="control-group">
+          <label for="categorySelect">Categorías</label>
+          <select id="categorySelect" multiple size="5" aria-label="Seleccionar categorías"></select>
+          <div class="control-row">
+            <button id="selectAllBtn" class="secondary" title="Seleccionar todas">Seleccionar todas</button>
+            <button id="clearAllBtn" class="ghost" title="Limpiar selección">Limpiar</button>
+          </div>
+        </div>
+
+        <div class="control-group">
+          <label for="levelSelect">Profundidad</label>
+          <select id="levelSelect" aria-label="Nivel de profundidad">
+            <option value="todas">Todas</option>
+            <option value="ligero">Ligero</option>
+            <option value="profundo">Profundo</option>
+            <option value="reflexivo">Reflexivo</option>
+          </select>
+          <label class="checkbox">
+            <input type="checkbox" id="noRepeat" checked /> No repetir hasta agotar
+          </label>
+        </div>
+
+        <div class="control-group">
+          <label for="timerSelect">Temporizador</label>
+          <select id="timerSelect">
+            <option value="0">Sin temporizador</option>
+            <option value="30">30 s</option>
+            <option value="60">60 s</option>
+            <option value="120">120 s</option>
+          </select>
+          <div class="timer-row">
+            <button id="startTimerBtn" class="secondary">Iniciar</button>
+            <span id="timerDisplay" aria-live="polite">00:00</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel">
+        <details>
+          <summary>Modo sesión (turnos)</summary>
+          <div class="session">
+            <div class="players">
+              <input id="player1" type="text" placeholder="Nombre 1" />
+              <input id="player2" type="text" placeholder="Nombre 2" />
+            </div>
+            <label class="checkbox" title="Proponer retos extra con puntos">
+              <input type="checkbox" id="retosToggle" /> Activar modo retos (puntos extra)
+            </label>
+            <div class="control-row">
+              <button id="startSessionBtn" class="secondary">Iniciar sesión</button>
+              <button id="resetSessionBtn" class="ghost danger">Reiniciar</button>
+              <button id="randomTurnBtn" class="secondary">Elegir al azar</button>
+              <button id="endTurnBtn" class="ghost">Terminar turno</button>
+            </div>
+            <small class="hint">Consejo: al pasar a “Siguiente” en sesión, el turno cambia y suma una pregunta respondida.</small>
+          </div>
+        </details>
+      </section>
+
+      <section class="card" aria-live="polite">
+        <div class="pill-row">
+          <span id="pillCategory" class="pill">Categoría</span>
+          <span id="pillLevel" class="pill">Nivel</span>
+        </div>
+        <p id="questionText" class="question">Pulsa “Siguiente” para empezar</p>
+        <div id="challengeBox" class="challenge" hidden>
+          <div class="challenge-row">
+            <span class="pill pill-accent" id="challengePill">Reto</span>
+            <span id="challengeText" class="challenge-text"></span>
+          </div>
+          <div class="actions">
+            <button id="completeChallengeBtn" class="secondary">✔ Completar (+0)</button>
+            <button id="rerollChallengeBtn" class="ghost">↻ Cambiar reto</button>
+          </div>
+        </div>
+        <div class="actions">
+          <button id="prevBtn" class="ghost" title="Anterior">⟵ Anterior</button>
+          <button id="nextBtn" class="primary" title="Siguiente">Siguiente ⟶</button>
+        </div>
+        <div class="meta-actions">
+          <button id="favBtn" class="secondary" title="Guardar como favorita">☆ Favorita</button>
+          <button id="copyBtn" class="ghost" title="Copiar">Copiar</button>
+          <button id="shareBtn" class="ghost" title="Compartir">Compartir</button>
+        </div>
+      </section>
+
+      <section class="panel">
+        <details>
+          <summary>Favoritas</summary>
+          <div class="favorites">
+            <ul id="favoritesList" class="list"></ul>
+            <div class="favorites-actions">
+              <button id="exportFavsBtn" class="secondary">Exportar</button>
+              <label class="file-btn">
+                Importar
+                <input type="file" id="importFavsInput" accept="application/json" />
+              </label>
+              <button id="clearFavsBtn" class="ghost danger">Vaciar</button>
+            </div>
+          </div>
+        </details>
+      </section>
+
+      <section class="panel">
+        <details>
+          <summary>Personaliza tu mazo</summary>
+          <div class="customize">
+            <p>Puedes añadir tus propias preguntas pegándolas abajo (una por línea). Asigna una categoría y nivel a todas las nuevas.</p>
+            <textarea id="customQuestions" rows="6" placeholder="Escribe preguntas, una por línea..."></textarea>
+            <div class="control-row">
+              <input id="customCategory" type="text" placeholder="Categoría (ej. Nuestro futuro)" />
+              <select id="customLevel">
+                <option value="ligero">Ligero</option>
+                <option value="profundo">Profundo</option>
+                <option value="reflexivo">Reflexivo</option>
+              </select>
+              <button id="addCustomBtn" class="secondary">Añadir</button>
+            </div>
+          </div>
+        </details>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <small>Hecho con ❤ para mejorar la conversación. Todo se guarda localmente en tu navegador. · <button id="openHelpBtn" class="ghost" style="margin-left:6px">Instrucciones</button></small>
+    </footer>
+
+  <!-- Modal de instrucciones -->
+    <div id="instructionsOverlay" class="modal-overlay" hidden></div>
+    <div id="instructionsModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="instrTitle" hidden>
+      <div class="modal-header">
+        <h2 id="instrTitle">Cómo jugar</h2>
+        <button id="closeInstrBtn" class="icon-btn" aria-label="Cerrar">×</button>
+      </div>
+      <div class="modal-body">
+        <p>Este juego propone preguntas para conversar en pareja. Puedes ajustar categorías, nivel y otras opciones.</p>
+        <ul>
+          <li>Usa “Siguiente” para obtener una pregunta al azar. “Anterior” regresa a la previa.</li>
+          <li>Filtra por <strong>categorías</strong> y <strong>nivel</strong>. Activa “No repetir” para agotar sin repetir.</li>
+          <li>Marca <strong>favoritas</strong>, expórtalas/importa cuando quieras.</li>
+          <li>Activa el <strong>temporizador</strong> si desean limitar el tiempo de respuesta.</li>
+          <li>En <strong>Modo sesión</strong>, indica los nombres; con “Siguiente” el turno alterna y suma 1.</li>
+          <li>Si activas <strong>retos</strong>, a veces aparecerá un reto con <em>puntos extra</em> (+1/+2).</li>
+          <li>Puedes <strong>añadir tus preguntas</strong> al mazo (una por línea).</li>
+        </ul>
+      </div>
+      <div class="modal-footer">
+        <label class="checkbox"><input type="checkbox" id="dontShowAgain"/> No volver a mostrar</label>
+        <div class="spacer"></div>
+        <button id="startPlayingBtn" class="primary">Vamos a jugar</button>
+      </div>
+    </div>
+
+  <!-- Modal de nombres (Novia/Novio) -->
+    <div id="namesOverlay" class="modal-overlay" hidden></div>
+    <div id="namesModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="namesTitle" hidden>
+      <div class="modal-header">
+        <h2 id="namesTitle">Nombres</h2>
+        <button id="closeNamesBtn" class="icon-btn" aria-label="Cerrar">×</button>
+      </div>
+      <div class="modal-body">
+        <div class="control-group" style="background:transparent;border:none;padding:0">
+          <label for="nameNovia">Novia:</label>
+          <input id="nameNovia" required placeholder="Nombre de la novia" style="width:100%;background:#0b1220;color:var(--text);border:1px solid var(--border);border-radius:8px;padding:8px" />
+        </div>
+        <div class="control-group" style="background:transparent;border:none;padding:0;margin-top:10px">
+          <label for="nameNovio">Novio:</label>
+          <input id="nameNovio" required placeholder="Nombre del novio" style="width:100%;background:#0b1220;color:var(--text);border:1px solid var(--border);border-radius:8px;padding:8px" />
+        </div>
+        <small class="hint">Podrás cambiar los nombres luego en “Modo sesión (turnos)”.</small>
+      </div>
+      <div class="modal-footer">
+        <button id="cancelNamesBtn" class="ghost">Cancelar</button>
+        <div class="spacer"></div>
+        <button id="confirmNamesBtn" class="primary">Comenzar</button>
+      </div>
+    </div>
+
+    <!-- Modal de turno (animación breve) -->
+    <div id="turnOverlay" class="turn-overlay" hidden></div>
+    <div id="turnModal" class="turn-modal" hidden aria-live="polite">
+      <div class="turn-bubble">Turno: <strong id="turnNameModal">—</strong></div>
+    </div>
+
+  <script src="./main.js?v=8"></script>
+  </body>
+  </html>
