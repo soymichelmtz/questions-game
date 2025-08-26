@@ -1,5 +1,5 @@
 // Service Worker simple para cache offline
-const CACHE = 'qpair-cache-v6';
+const CACHE = 'qpair-cache-v7';
 const ASSETS = [
   './',
   './index.html',
@@ -8,7 +8,12 @@ const ASSETS = [
   './manifest.json'
 ];
 self.addEventListener('install', (e) => {
-  e.waitUntil(caches.open(CACHE).then(c => c.addAll(ASSETS)).then(() => self.skipWaiting()));
+  e.waitUntil(
+    caches.open(CACHE)
+      .then(c => c.addAll(ASSETS))
+      .then(() => self.skipWaiting())
+      .catch(() => self.skipWaiting())
+  );
 });
 self.addEventListener('activate', (e) => {
   e.waitUntil(
@@ -17,11 +22,28 @@ self.addEventListener('activate', (e) => {
 });
 self.addEventListener('fetch', (e) => {
   const req = e.request;
-  e.respondWith(
-    caches.match(req).then(res => res || fetch(req).then(nr => {
-      const copy = nr.clone();
-      caches.open(CACHE).then(c => c.put(req, copy));
-      return nr;
-    }).catch(() => caches.match('./index.html')))
-  );
+  const url = new URL(req.url);
+  // Ignorar esquemas no soportados y métodos no-GET (p.ej. chrome-extension:, data:, blob:)
+  if (req.method !== 'GET') return;
+  if (url.protocol !== 'http:' && url.protocol !== 'https:') return;
+  e.respondWith((async () => {
+    const cached = await caches.match(req);
+    if (cached) return cached;
+    try {
+      const resp = await fetch(req);
+      // Cachear solo same-origin para evitar errores con orígenes externos
+      if (url.origin === self.location.origin) {
+        const c = await caches.open(CACHE);
+        c.put(req, resp.clone());
+      }
+      return resp;
+    } catch (err) {
+      // Para navegaciones, cae a index.html si offline
+      if (req.mode === 'navigate') {
+        const fallback = await caches.match('./index.html');
+        if (fallback) return fallback;
+      }
+      return new Response('Offline', { status: 504, statusText: 'offline' });
+    }
+  })());
 });
