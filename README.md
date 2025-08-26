@@ -17,6 +17,10 @@ App web estática (HTML/CSS/JS) para conversar en pareja con preguntas al azar, 
 - Modo Retos (opcional): aparece a veces un reto con puntos extra (+1/+2), con opciones para cambiar reto o completarlo y sumar puntos.
 - Señal visual y sonora del turno: burbuja animada “Turno: [Nombre]” + chime breve.
 
+Notas importantes del modo sesión:
+- La cinta “Turno:” y el modal de turno solo se muestran cuando los dos nombres fueron confirmados y no están vacíos.
+- Los placeholders fueron eliminados; no verás “Turno: —”.
+
 ## Onboarding y UX
 - Modal de instrucciones al primer ingreso (con “No volver a mostrar”).
 - Modal de nombres (Novia/Novio) al comenzar, con validación obligatoria y aviso persistente hasta completar.
@@ -25,6 +29,11 @@ App web estática (HTML/CSS/JS) para conversar en pareja con preguntas al azar, 
 ## PWA y caché
 - manifest.json y Service Worker (`sw.js`) con precache y runtime cache.
 - Para forzar actualización tras cambios: recarga dura 1-2 veces.
+
+Detalles actuales:
+- Cache: `qpair-cache-v13` con `./js/main.js?v=14` precacheado.
+- Registro del SW: `./sw.js?v=13` y autorrecarga al activarse uno nuevo.
+- El SW ignora métodos no-GET y esquemas no http/https (p. ej. `chrome-extension:`) y cachea solo same-origin.
 
 ## Ejecutar localmente
 Aunque es estática y puede abrirse con doble click, se recomienda servir por HTTP para que el Service Worker funcione:
@@ -35,6 +44,13 @@ PowerShell (Windows):
 # En la carpeta del proyecto
 npx --yes http-server -p 5501 -c-1 --silent
 # Abre http://localhost:5501
+```
+
+Si prefieres Python:
+
+```powershell
+python -m http.server 5501
+# Abre http://127.0.0.1:5501/
 ```
 
 Alternativa: abrir `index.html` directamente en el navegador si no necesitas SW.
@@ -51,6 +67,10 @@ Alternativa: abrir `index.html` directamente en el navegador si no necesitas SW.
 - Persiste: favoritas (`qpair:favorites`) y sesión (`qpair:session`).
 - Evita errores por elementos faltantes con `safeOn`.
 - Control de caché: versión del JS vía `?v=N` y bump del `CACHE` en `sw.js`.
+
+## Troubleshooting
+- ¿No aparece la cinta/modal de turno? Asegúrate de confirmar ambos nombres en el modal de Nombres y presionar “Comenzar”.
+- ¿Cambios no se ven? Haz una recarga dura 1–2 veces para que el nuevo SW tome control o limpia datos del sitio.
 
 ## Licencia
 Uso personal; puedes editar el contenido a tu gusto.

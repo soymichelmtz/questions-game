@@ -25,6 +25,22 @@ Crear un "juego de preguntas para parejas" como app web estática, usable offlin
 - Turn cue: burbuja animada "Turno: [Nombre]" + chime corto en cada cambio de turno.
 - PWA: manifest + Service Worker con precache y runtime cache.
 
+## Cambios recientes (ago 2025)
+- Gating estricto del UI de turno:
+  - La cinta “Turno:” y el modal de turno solo aparecen si `session.active` y `session.namesConfirmed` son verdaderos, y ambos nombres están completos (no vacíos); además, el nombre del turno actual no puede estar vacío.
+  - Se eliminaron los placeholders “—” del HTML para evitar “Turno: —”.
+- Inicio más robusto del modal de turno:
+  - Se ocultan `#turnModal` y `#turnOverlay` inmediatamente tras obtener las referencias DOM (el script está al final del `<body>`).
+  - Se retiró un IIFE de `DOMContentLoaded` que, encadenado tras un cierre de bloque, podía provocar `Uncaught TypeError: (intermediate value)(...) is not a function` en ciertos contextos.
+- Service Worker endurecido y versionado:
+  - `CACHE = 'qpair-cache-v13'`; `ASSETS` incluye `./js/main.js?v=14`.
+  - Registro con `./sw.js?v=13` y recarga automática en `controllerchange`.
+  - Filtro de `fetch`: solo `GET`, solo `http/https`, ignora `chrome-extension:`; cachea solo same-origin; fallback a `index.html` en navegación offline.
+- Tema claro/oscuro:
+  - Toggle con persistencia en `localStorage` (`qpair:theme`) y etiquetas con emoji.
+- Señal de turno:
+  - Burbuja más grande y chime breve ajustado.
+
 ## Decisiones y detalles técnicos
 - Proyecto sin framework: HTML/CSS/JS puros.
 - Datos:
@@ -43,6 +59,10 @@ Crear un "juego de preguntas para parejas" como app web estática, usable offlin
   - `escapeHtml()` para render de favoritas.
 - PWA y caché:
   - Versiónado de JS con `?v=N` y de SW con `CACHE='qpair-cache-vN'` para romper caché cuando hay cambios.
+
+## Troubleshooting rápido
+- Si ves UI de turno vacía al inicio: confirma que ambos nombres se hayan establecido en el modal de nombres y que “Comenzar” los haya guardado; de lo contrario, la cinta y el modal no aparecen por diseño.
+- Si algún cambio no se refleja: recarga dura 1–2 veces para que el SW nuevo tome control; como alternativa, borra datos del sitio y vuelve a abrir.
 
 ## Cómo correr
 - Recomendado (Service Worker activo):
