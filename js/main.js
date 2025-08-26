@@ -73,7 +73,7 @@
 	let currentId = null
 	let favorites = loadFavorites()
 	let timer = { seconds:0, left:0, int:null }
-	let session = { active:false, players:['',''], turn:0, counts:[0,0], retos:false, lastChallenge:null }
+	let session = { active:false, players:['',''], turn:0, counts:[0,0], retos:false, lastChallenge:null, namesConfirmed:false }
 	// Turn cue timeout handle
 	let turnCueTo = null
 
@@ -436,12 +436,13 @@
 		session.turn = 0
 		session.counts = [0,0]
 		session.active = true
+			// no marcar namesConfirmed aquí; solo via confirmNames
 	saveSession(); renderSession(); toast('Sesión iniciada.','success')
 	cueTurn()
 	if(!currentId){ showNext() }
 	}
 	function resetSession(){
-		session = { active:false, players:['',''], turn:0, counts:[0,0] }
+			session = { active:false, players:['',''], turn:0, counts:[0,0], retos:false, lastChallenge:null, namesConfirmed:false }
 	saveSession(); renderSession(); toast('Sesión reiniciada.','info')
 	}
 	function randomTurn(){
@@ -466,8 +467,8 @@
 	function renderSession(){
 		els.player1.value = session.players[0]||''
 		els.player2.value = session.players[1]||''
-		const rawName = session.active ? (session.players[session.turn]||'').trim() : ''
-		const showTurn = session.active && !!rawName
+			const rawName = session.active ? (session.players[session.turn]||'').trim() : ''
+			const showTurn = session.active && session.namesConfirmed && !!rawName
 		els.sessionRibbon.hidden = !showTurn
 		els.turnName.textContent = showTurn ? rawName : ''
 		els.score1.textContent = `${session.players[0]||'P1'}: ${session.counts[0]}`
@@ -494,7 +495,7 @@
 	// PWA (manifest + service worker)
 	function registerPWA(){
 		if(!('serviceWorker' in navigator)) return
-		const swUrl = './sw.js?v=7'
+		const swUrl = './sw.js?v=9'
 		navigator.serviceWorker.register(swUrl).then(reg => {
 			// Intentar actualizar en segundo plano
 			try{ reg.update?.() }catch{}
@@ -570,6 +571,7 @@
 		session.turn = 0
 		session.counts = [0,0]
 		session.active = true
+			session.namesConfirmed = true
 		dismissNamesValidation();
 		saveSession(); renderSession(); closeNamesModal()
 	cueTurn()
@@ -579,8 +581,11 @@
 	// Turno: modal breve con animación
 	function cueTurn(){
 		if(!els.turnModal || !els.turnOverlay) return
+			if(!session.namesConfirmed) return
 		const curName = (session.players?.[session.turn]||'').trim()
-		if(!curName) return
+		// No mostrar el modal si el nombre está vacío o es el placeholder "—"
+		const domName = (els.turnNameModal?.textContent||'').trim()
+		if(!curName || curName === '—' || domName === '—') return
 	// sonido breve
 	turnChime()
 		const name = curName
