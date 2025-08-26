@@ -466,8 +466,10 @@
 	function renderSession(){
 		els.player1.value = session.players[0]||''
 		els.player2.value = session.players[1]||''
-		els.sessionRibbon.hidden = !session.active
-		els.turnName.textContent = session.active ? session.players[session.turn]||`Persona ${session.turn+1}` : '—'
+		const rawName = session.active ? (session.players[session.turn]||'').trim() : ''
+		const showTurn = session.active && !!rawName
+		els.sessionRibbon.hidden = !showTurn
+		els.turnName.textContent = showTurn ? rawName : ''
 		els.score1.textContent = `${session.players[0]||'P1'}: ${session.counts[0]}`
 		els.score2.textContent = `${session.players[1]||'P2'}: ${session.counts[1]}`
 		els.retosToggle.checked = !!session.retos
@@ -518,10 +520,10 @@
 	function applyTheme(mode){
 		if(mode === 'light'){
 			document.documentElement.setAttribute('data-theme','light')
-			const btn = document.getElementById('themeToggle'); if(btn) btn.textContent = 'Modo oscuro'
+			const btn = document.getElementById('themeToggle'); if(btn) btn.textContent = 'Modo oscuro \uD83C\uDF19'
 		}else{
 			document.documentElement.removeAttribute('data-theme')
-			const btn = document.getElementById('themeToggle'); if(btn) btn.textContent = 'Modo claro'
+			const btn = document.getElementById('themeToggle'); if(btn) btn.textContent = 'Modo claro \u2600\uFE0F'
 		}
 	}
 
@@ -577,9 +579,11 @@
 	// Turno: modal breve con animación
 	function cueTurn(){
 		if(!els.turnModal || !els.turnOverlay) return
+		const curName = (session.players?.[session.turn]||'').trim()
+		if(!curName) return
 	// sonido breve
 	turnChime()
-		const name = session.players?.[session.turn] || `Persona ${session.turn+1}`
+		const name = curName
 		if(els.turnNameModal) els.turnNameModal.textContent = name
 		// Mostrar
 		els.turnOverlay.hidden = false
