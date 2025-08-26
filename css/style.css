@@ -93,10 +93,10 @@ summary{ cursor:pointer; font-weight:700 }
 /* Turn cue */
 .turn-overlay{ position:fixed; inset:0; background:rgba(2,6,23,.65); z-index:1100 }
 .turn-modal{ position:fixed; inset:0; display:flex; align-items:center; justify-content:center; z-index:1101; pointer-events:none }
-.turn-bubble{ background:linear-gradient(135deg,var(--primary),var(--primary-600)); color:white; padding:20px 28px; border-radius:999px; box-shadow:0 10px 30px rgba(0,0,0,.35); transform:scale(.9); opacity:0; animation:turn-pop .9s ease forwards; font-size:clamp(22px,4.2vw,38px); font-weight:800; letter-spacing:.2px; line-height:1.1; white-space:nowrap }
+.turn-bubble{ background:linear-gradient(135deg,var(--primary),var(--primary-600)); color:white; padding:24px 32px; border-radius:999px; box-shadow:0 10px 30px rgba(0,0,0,.35); transform:scale(.9); opacity:0; animation:turn-pop .9s ease forwards; font-size:clamp(30px,6vw,64px); font-weight:800; letter-spacing:.2px; line-height:1.1; white-space:nowrap }
 @keyframes turn-pop { 0%{ opacity:0; transform:scale(.9) } 20%{ opacity:1; transform:scale(1) } 80%{ opacity:1; transform:scale(1) } 100%{ opacity:0; transform:scale(.98) } }
 
 @media (min-width:768px){
 	.question{ font-size:26px }
-	.turn-bubble{ font-size:clamp(26px,3.6vw,44px) }
+	.turn-bubble{ font-size:clamp(36px,5vw,72px) }
 }
