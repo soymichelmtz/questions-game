@@ -72,5 +72,20 @@ Alternativa: abrir `index.html` directamente en el navegador si no necesitas SW.
 - ¿No aparece la cinta/modal de turno? Asegúrate de confirmar ambos nombres en el modal de Nombres y presionar “Comenzar”.
 - ¿Cambios no se ven? Haz una recarga dura 1–2 veces para que el nuevo SW tome control o limpia datos del sitio.
 
+## GitHub Pages
+Este repo está listo para desplegarse automáticamente a GitHub Pages en cada push a `main` mediante un workflow.
+
+Pasos (solo una vez):
+- En GitHub, ve a Settings → Pages.
+- En “Build and deployment”, elige “GitHub Actions”.
+- Guarda. El workflow `.github/workflows/pages.yml` publicará el sitio.
+
+URL esperada:
+- `https://<tu-usuario>.github.io/questions-game/`
+
+Notas:
+- Se incluye `.nojekyll` para evitar procesamiento de Jekyll.
+- El Service Worker funciona bajo el path de Pages; el `start_url` del manifest es `./index.html`.
+
 ## Licencia
 Uso personal; puedes editar el contenido a tu gusto.
