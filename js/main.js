@@ -141,6 +141,12 @@
 	turnNameModal: document.getElementById('turnNameModal'),
 	}
 
+	// Ocultar modal/overlay de turno inmediatamente (el script está al final del body)
+	try{
+		if(els.turnModal) els.turnModal.hidden = true
+		if(els.turnOverlay) els.turnOverlay.hidden = true
+	}catch{}
+
 	// Init
 	populateCategories()
 	renderFavorites()
@@ -467,8 +473,10 @@
 	function renderSession(){
 		els.player1.value = session.players[0]||''
 		els.player2.value = session.players[1]||''
+			const p0 = (session.players[0]||'').trim()
+			const p1 = (session.players[1]||'').trim()
 			const rawName = session.active ? (session.players[session.turn]||'').trim() : ''
-			const showTurn = session.active && session.namesConfirmed && rawName.length>0
+			const showTurn = session.active && session.namesConfirmed && p0.length>0 && p1.length>0 && rawName.length>0
 		els.sessionRibbon.hidden = !showTurn
 		els.turnName.textContent = showTurn ? rawName : ''
 		els.score1.textContent = `${session.players[0]||'P1'}: ${session.counts[0]}`
@@ -495,7 +503,7 @@
 	// PWA (manifest + service worker)
 	function registerPWA(){
 		if(!('serviceWorker' in navigator)) return
-		const swUrl = './sw.js?v=10'
+		const swUrl = './sw.js?v=13'
 		navigator.serviceWorker.register(swUrl).then(reg => {
 			// Intentar actualizar en segundo plano
 			try{ reg.update?.() }catch{}
@@ -582,6 +590,9 @@
 	function cueTurn(){
 		if(!els.turnModal || !els.turnOverlay) return
 			if(!session.namesConfirmed) return
+		const p0 = (session.players?.[0]||'').trim()
+		const p1 = (session.players?.[1]||'').trim()
+		if(!p0 || !p1) return
 		const curName = (session.players?.[session.turn]||'').trim()
 		// No mostrar el modal si el nombre está vacío
 		if(!curName) return
@@ -592,6 +603,7 @@
 		// Mostrar
 		els.turnOverlay.hidden = false
 		els.turnModal.hidden = false
+        
 		// Reiniciar animación del bubble
 		try{
 			const bubble = els.turnModal.querySelector('.turn-bubble')

@@ -1,10 +1,10 @@
 // Service Worker simple para cache offline
-const CACHE = 'qpair-cache-v10';
+const CACHE = 'qpair-cache-v13';
 const ASSETS = [
   './',
   './index.html',
   './css/style.css',
-  './js/main.js?v=11',
+  './js/main.js?v=14',
   './manifest.json'
 ];
 self.addEventListener('install', (e) => {
