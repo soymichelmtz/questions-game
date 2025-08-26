@@ -26,6 +26,7 @@ self.addEventListener('fetch', (e) => {
   // Ignorar esquemas no soportados y métodos no-GET (p.ej. chrome-extension:, data:, blob:)
   if (req.method !== 'GET') return;
   if (url.protocol !== 'http:' && url.protocol !== 'https:') return;
+  if (url.protocol === 'chrome-extension:') return;
   e.respondWith((async () => {
     const cached = await caches.match(req);
     if (cached) return cached;

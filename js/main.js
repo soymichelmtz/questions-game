@@ -491,9 +491,17 @@
 
 	// PWA (manifest + service worker)
 	function registerPWA(){
-		if('serviceWorker' in navigator){
-			navigator.serviceWorker.register('./sw.js').catch(()=>{})
-		}
+		if(!('serviceWorker' in navigator)) return
+		const swUrl = './sw.js?v=7'
+		navigator.serviceWorker.register(swUrl).then(reg => {
+			// Intentar actualizar en segundo plano
+			try{ reg.update?.() }catch{}
+		}).catch(()=>{})
+		// Recargar una vez cuando el controlador cambie (nuevo SW activo)
+		let refreshed = false
+		navigator.serviceWorker.addEventListener('controllerchange', () => {
+			if (refreshed) return; refreshed = true; try{ window.location.reload() }catch{}
+		})
 	}
 
 	// Tema claro/oscuro
