@@ -468,7 +468,7 @@
 		els.player1.value = session.players[0]||''
 		els.player2.value = session.players[1]||''
 			const rawName = session.active ? (session.players[session.turn]||'').trim() : ''
-			const showTurn = session.active && session.namesConfirmed && !!rawName
+			const showTurn = session.active && session.namesConfirmed && rawName.length>0
 		els.sessionRibbon.hidden = !showTurn
 		els.turnName.textContent = showTurn ? rawName : ''
 		els.score1.textContent = `${session.players[0]||'P1'}: ${session.counts[0]}`
@@ -495,7 +495,7 @@
 	// PWA (manifest + service worker)
 	function registerPWA(){
 		if(!('serviceWorker' in navigator)) return
-		const swUrl = './sw.js?v=9'
+		const swUrl = './sw.js?v=10'
 		navigator.serviceWorker.register(swUrl).then(reg => {
 			// Intentar actualizar en segundo plano
 			try{ reg.update?.() }catch{}
@@ -583,9 +583,8 @@
 		if(!els.turnModal || !els.turnOverlay) return
 			if(!session.namesConfirmed) return
 		const curName = (session.players?.[session.turn]||'').trim()
-		// No mostrar el modal si el nombre está vacío o es el placeholder "—"
-		const domName = (els.turnNameModal?.textContent||'').trim()
-		if(!curName || curName === '—' || domName === '—') return
+		// No mostrar el modal si el nombre está vacío
+		if(!curName) return
 	// sonido breve
 	turnChime()
 		const name = curName
