@@ -149,6 +149,7 @@
 	loadSession()
 	renderSession()
 	registerPWA()
+	initTheme()
 	maybeShowInstructions()
 
 	// Listeners
@@ -188,6 +189,8 @@
 	safeOn(els.confirmNamesBtn,'click', confirmNames)
 	// turno cue
 	safeOn(els.turnOverlay,'click', hideTurnCue)
+	// tema
+	safeOn(document.getElementById('themeToggle'),'click', toggleTheme)
 
 	// Navegación con teclado
 	document.addEventListener('keydown', (e)=>{
@@ -493,6 +496,27 @@
 		}
 	}
 
+	// Tema claro/oscuro
+	function initTheme(){
+		const saved = localStorage.getItem('qpair:theme') || 'dark'
+		applyTheme(saved)
+	}
+	function toggleTheme(){
+		const cur = document.documentElement.getAttribute('data-theme') === 'light' ? 'light' : 'dark'
+		const next = cur === 'light' ? 'dark' : 'light'
+		applyTheme(next)
+		try{ localStorage.setItem('qpair:theme', next) }catch{}
+	}
+	function applyTheme(mode){
+		if(mode === 'light'){
+			document.documentElement.setAttribute('data-theme','light')
+			const btn = document.getElementById('themeToggle'); if(btn) btn.textContent = 'Modo oscuro'
+		}else{
+			document.documentElement.removeAttribute('data-theme')
+			const btn = document.getElementById('themeToggle'); if(btn) btn.textContent = 'Modo claro'
+		}
+	}
+
 	// Instrucciones (modal)
 	function maybeShowInstructions(){
 		const dismissed = localStorage.getItem('qpair:dismissedIntro')==='1'
@@ -640,7 +664,7 @@
 			case 'success': styles = { background:'#16a34a', color:'#f0fdf4', border:'1px solid #15803d' }; break
 			case 'warn': styles = { background:'#facc15', color:'#111827', border:'1px solid #ca8a04' }; break
 			case 'error': styles = { background:'#ef4444', color:'#fff', border:'1px solid #b91c1c' }; break
-			default: styles = { background:'#0b1220', color:'#e5e7eb', border:'1px solid #1f2937' }
+			default: styles = { background:'var(--surface)', color:'var(--text)', border:'1px solid var(--border)' }
 		}
 		Object.assign(t.style, base, styles)
 		document.body.appendChild(t); requestAnimationFrame(()=>{ t.style.opacity='1' })

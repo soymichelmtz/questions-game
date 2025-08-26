@@ -1,6 +1,9 @@
 :root{
+	/* Dark theme (default) */
 	--bg:#0f172a; /* slate-900 */
+	--bg-grad:linear-gradient(180deg,#0b1220 0%, #0f172a 60%, #101826 100%);
 	--card:#111827; /* gray-900 */
+	--surface:#0b1220; /* deepest */
 	--muted:#94a3b8; /* slate-400 */
 	--text:#e5e7eb; /* gray-200 */
 	--primary:#8b5cf6; /* violet-500 */
@@ -9,11 +12,26 @@
 	--danger:#ef4444; /* red-500 */
 	--border:#1f2937; /* gray-800 */
 }
+
+/* Light theme */
+[data-theme="light"]{
+	--bg:#f5f7fb;
+	--bg-grad:linear-gradient(180deg,#ffffff 0%, #eef2ff 60%, #eaf0ff 100%);
+	--card:#ffffff;
+	--surface:#f8fafc;
+	--muted:#475569;
+	--text:#0f172a;
+	--primary:#7c3aed; /* keep brand */
+	--primary-600:#6d28d9;
+	--accent:#0891b2;
+	--danger:#dc2626;
+	--border:#e5e7eb;
+}
 *{box-sizing:border-box}
 html,body{height:100%}
 body{
 	margin:0; font-family:Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
-	background:linear-gradient(180deg,#0b1220 0%, #0f172a 60%, #101826 100%);
+	background:var(--bg-grad);
 	color:var(--text); line-height:1.5;
 }
 .app-header{ text-align:center; padding:24px 16px 8px}
@@ -23,9 +41,9 @@ body{
 .container{ max-width:960px; margin:0 auto; padding:16px }
 
 .session-ribbon{ display:flex; justify-content:space-between; align-items:center; gap:12px; background:linear-gradient(90deg, rgba(139,92,246,.15), rgba(34,211,238,.12)); border:1px solid var(--border); border-radius:12px; padding:10px 12px; margin-bottom:12px }
-.session-ribbon .badge{ background:#0b1220; border:1px solid var(--border); border-radius:999px; padding:4px 10px; font-weight:700 }
+.session-ribbon .badge{ background:var(--surface); border:1px solid var(--border); border-radius:999px; padding:4px 10px; font-weight:700 }
 .session .players{ display:flex; gap:8px; flex-wrap:wrap; margin:8px 0 }
-.session .players input{ background:#0b1220; color:var(--text); border:1px solid var(--border); border-radius:8px; padding:8px; min-width:160px }
+.session .players input{ background:var(--surface); color:var(--text); border:1px solid var(--border); border-radius:8px; padding:8px; min-width:160px }
 .hint{ color:var(--muted) }
 
 .controls{
@@ -33,17 +51,17 @@ body{
 }
 .control-group{ background:var(--card); border:1px solid var(--border); border-radius:12px; padding:12px }
 .control-group label{ display:block; font-weight:600; margin-bottom:8px }
-.control-group select[multiple]{ width:100%; min-height:8rem; border-radius:8px; border:1px solid var(--border); background:#0b1220; color:var(--text); padding:8px }
-.control-group select{ width:100%; border-radius:8px; border:1px solid var(--border); background:#0b1220; color:var(--text); padding:8px }
+.control-group select[multiple]{ width:100%; min-height:8rem; border-radius:8px; border:1px solid var(--border); background:var(--surface); color:var(--text); padding:8px }
+.control-group select{ width:100%; border-radius:8px; border:1px solid var(--border); background:var(--surface); color:var(--text); padding:8px }
 .checkbox{ display:flex; align-items:center; gap:8px; color:var(--muted); margin-top:8px }
 .control-row{ display:flex; gap:8px; margin-top:8px; flex-wrap:wrap }
 
 .timer-row{ display:flex; align-items:center; gap:10px; margin-top:8px }
-#timerDisplay{ font-variant-numeric:tabular-nums; background:#0b1220; border:1px solid var(--border); padding:6px 10px; border-radius:8px }
+#timerDisplay{ font-variant-numeric:tabular-nums; background:var(--surface); border:1px solid var(--border); padding:6px 10px; border-radius:8px }
 
 .card{ margin-top:18px; background:radial-gradient(1200px 600px at 100% -20%, rgba(139,92,246,0.15), transparent 60%), var(--card); border:1px solid var(--border); border-radius:16px; padding:18px }
 .pill-row{ display:flex; gap:8px; flex-wrap:wrap }
-.pill{ display:inline-block; padding:4px 10px; border-radius:999px; background:#0b1220; color:var(--accent); border:1px solid var(--border); font-size:12px }
+.pill{ display:inline-block; padding:4px 10px; border-radius:999px; background:var(--surface); color:var(--accent); border:1px solid var(--border); font-size:12px }
 .pill-accent{ color:#f0f9ff; background:linear-gradient(135deg,#22d3ee33,#8b5cf633); border-color:#1f3a5f }
 .question{ font-size:22px; margin:14px 0 6px }
 .challenge{ margin-top:8px; border-top:1px dashed var(--border); padding-top:10px }
@@ -56,12 +74,12 @@ button{ cursor:pointer; border:none; border-radius:10px; padding:10px 14px; font
 button:active{ transform:translateY(1px) }
 .primary{ background:linear-gradient(135deg,var(--primary),var(--primary-600)); }
 .primary:hover{ filter:brightness(1.05) }
-.secondary{ background:#0b1220; border:1px solid var(--border) }
+.secondary{ background:var(--surface); border:1px solid var(--border) }
 .secondary:hover{ background:#0d1422 }
 .ghost{ background:transparent; border:1px dashed var(--border); color:var(--muted) }
 .ghost:hover{ border-style:solid; color:var(--text) }
 .danger{ color:#fecaca; border-color:#7f1d1d }
-.file-btn{ position:relative; display:inline-flex; align-items:center; gap:8px; background:#0b1220; border:1px solid var(--border); border-radius:10px; padding:10px 14px; cursor:pointer }
+.file-btn{ position:relative; display:inline-flex; align-items:center; gap:8px; background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:10px 14px; cursor:pointer }
 .file-btn input{ position:absolute; inset:0; opacity:0; cursor:pointer }
 
 .panel{ margin-top:12px; }
@@ -69,13 +87,13 @@ details{ background:var(--card); border:1px solid var(--border); border-radius:1
 summary{ cursor:pointer; font-weight:700 }
 .favorites{ margin-top:8px }
 .list{ list-style:none; margin:0; padding:0; display:grid; gap:8px }
-.list li{ background:#0b1220; border:1px solid var(--border); border-radius:10px; padding:10px; display:flex; justify-content:space-between; align-items:flex-start; gap:10px }
+.list li{ background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:10px; display:flex; justify-content:space-between; align-items:flex-start; gap:10px }
 .list .meta{ color:var(--muted); font-size:12px }
 .list .row{ display:flex; gap:6px; flex-wrap:wrap }
 .favorites-actions{ display:flex; gap:8px; margin-top:8px; flex-wrap:wrap }
 
-.customize textarea{ width:100%; background:#0b1220; color:var(--text); border:1px solid var(--border); border-radius:8px; padding:8px }
-.customize .control-row input, .customize .control-row select{ background:#0b1220; color:var(--text); border:1px solid var(--border); border-radius:8px; padding:8px }
+.customize textarea{ width:100%; background:var(--surface); color:var(--text); border:1px solid var(--border); border-radius:8px; padding:8px }
+.customize .control-row input, .customize .control-row select{ background:var(--surface); color:var(--text); border:1px solid var(--border); border-radius:8px; padding:8px }
 
 .footer{ text-align:center; color:var(--muted); padding:24px 8px 40px }
 
