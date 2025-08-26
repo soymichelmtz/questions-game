@@ -41,8 +41,8 @@ Alternativa: abrir `index.html` directamente en el navegador si no necesitas SW.
 
 ## Estructura de archivos
 - `index.html`: UI principal y modales (instrucciones, nombres, turno).
-- `style.css`: estilos, toasts, burbuja de turno y animaciones.
-- `main.js`: lógica del juego (filtros, cola sin repetición, historial, favoritas, temporizador, sesión/retos, modales, toasts, chime de turno, PWA init).
+- `css/style.css`: estilos, toasts, burbuja de turno y animaciones.
+- `js/main.js`: lógica del juego (filtros, cola sin repetición, historial, favoritas, temporizador, sesión/retos, modales, toasts, chime de turno, PWA init).
 - `sw.js`: cacheo offline (ver `CACHE` y assets precacheados).
 - `manifest.json`: metadatos PWA.
 
