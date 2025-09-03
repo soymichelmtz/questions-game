@@ -48,6 +48,39 @@
 		q('Planes','reflexivo','¿Qué meta a 6 meses te emociona compartir?'),
 		q('Finanzas','ligero','¿Qué pequeño ahorro en pareja propondrías?'),
 		q('Finanzas','reflexivo','¿Cómo te gustaría hablar de dinero sin estrés?'),
+		// Nuevas categorías
+		// Amistades y redes
+		q('Amistades y redes','ligero','¿Qué te gusta de nuestra forma de convivir con amistades?'),
+		q('Amistades y redes','reflexivo','¿Cómo influyen nuestras amistades en la relación y qué límites cuidamos?'),
+		q('Amistades y redes','profundo','¿Qué amistad te gustaría fortalecer juntos y por qué?'),
+		// Trabajo y propósito
+		q('Trabajo y propósito','ligero','¿Qué parte de tu trabajo te entusiasma contarme?'),
+		q('Trabajo y propósito','reflexivo','¿Cómo equilibramos trabajo y pareja en semanas exigentes?'),
+		q('Trabajo y propósito','profundo','¿Qué propósito personal te gustaría alinear con nuestra vida en común?'),
+		// Rutinas y hogar
+		q('Rutinas y hogar','ligero','¿Qué rutina pequeña mejorarías en casa para hacernos la vida más fácil?'),
+		q('Rutinas y hogar','reflexivo','¿Qué acuerdo de roles nos ayudaría a sentirnos más en equipo?'),
+		q('Rutinas y hogar','profundo','¿Cómo te gustaría que se sienta nuestro hogar en momentos de estrés?'),
+		// Viajes y aventuras
+		q('Viajes y aventuras','ligero','¿Qué destino cercano te gustaría explorar conmigo pronto?'),
+		q('Viajes y aventuras','reflexivo','¿Qué aprendizaje quieres traer de un viaje a nuestra vida diaria?'),
+		q('Viajes y aventuras','profundo','¿Qué aventura pendiente simboliza el tipo de pareja que queremos ser?'),
+		// Conflictos y reconciliación
+		q('Conflictos y reconciliación','ligero','¿Qué señal te ayuda a bajar la tensión en una discusión?'),
+		q('Conflictos y reconciliación','reflexivo','¿Qué práctica de reparación te hace sentir visto/a después de un conflicto?'),
+		q('Conflictos y reconciliación','profundo','¿Qué patrón queremos romper para discutir con más cuidado?'),
+		// Límites y acuerdos
+		q('Límites y acuerdos','ligero','¿Qué límite personal te gustaría que respetáramos mejor?'),
+		q('Límites y acuerdos','reflexivo','¿Qué acuerdo nuevo podríamos probar este mes?'),
+		q('Límites y acuerdos','profundo','¿Cómo te gustaría que manejáramos los “no” sin herirnos?'),
+		// Sexualidad e intimidad emocional
+		q('Sexualidad e intimidad emocional','ligero','¿Qué gesto íntimo te hace sentir más conectado/a?'),
+		q('Sexualidad e intimidad emocional','reflexivo','¿Qué conversación sobre deseos o miedos te gustaría tener con calma?'),
+		q('Sexualidad e intimidad emocional','profundo','¿Qué necesitas para sentirte seguro/a y libre en nuestra intimidad?'),
+		// Sueños y futuro
+		q('Sueños y futuro','ligero','¿Qué pequeño sueño te gustaría cumplir juntos este año?'),
+		q('Sueños y futuro','reflexivo','¿Qué habilidad querrías que desarrollemos como pareja para el futuro?'),
+		q('Sueños y futuro','profundo','¿Qué visión a 5 años te emociona y qué pasos daríamos desde hoy?'),
 	]
 
 	// Retos (challenges) — pueden dar puntos extra
@@ -503,7 +536,7 @@
 	// PWA (manifest + service worker)
 	function registerPWA(){
 		if(!('serviceWorker' in navigator)) return
-		const swUrl = './sw.js?v=13'
+		const swUrl = './sw.js?v=14'
 		navigator.serviceWorker.register(swUrl).then(reg => {
 			// Intentar actualizar en segundo plano
 			try{ reg.update?.() }catch{}
