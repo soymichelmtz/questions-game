@@ -101,6 +101,12 @@
 		q('Visión de familia y crianza','ligero','¿Qué tradición familiar te gustaría mantener o crear?'),
 		q('Visión de familia y crianza','reflexivo','¿Qué valores queremos transmitir a futuros hijos/sobrinos/personas cercanas?'),
 		q('Visión de familia y crianza','profundo','¿Cómo imaginamos dividir cuidados y responsabilidades en una futura familia?'),
+		// Celos y seguridad (5)
+		q('Celos y seguridad','ligero','¿Qué necesitas de mí cuando sientes celos para recuperar seguridad?'),
+		q('Celos y seguridad','ligero','¿Qué límites con terceras personas te hacen sentir más tranquilo/a?'),
+		q('Celos y seguridad','reflexivo','¿Qué creencia sobre los celos hemos aprendido y queremos actualizar?'),
+		q('Celos y seguridad','reflexivo','¿Cómo diferenciamos una señal real de alerta de un miedo aprendido?'),
+		q('Celos y seguridad','profundo','¿Qué acuerdos nos ayudan a construir confianza incluso cuando aparecen celos?'),
 	]
 
 	// Retos (challenges) — pueden dar puntos extra
@@ -556,7 +562,7 @@
 	// PWA (manifest + service worker)
 	function registerPWA(){
 		if(!('serviceWorker' in navigator)) return
-		const swUrl = './sw.js?v=15'
+		const swUrl = './sw.js?v=16'
 		navigator.serviceWorker.register(swUrl).then(reg => {
 			// Intentar actualizar en segundo plano
 			try{ reg.update?.() }catch{}
