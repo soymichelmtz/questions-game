@@ -189,6 +189,22 @@
 		{ text:'Planifiquen una actividad nueva para esta semana.', points:2 },
 		{ text:'Compartan un miedo y una forma de apoyarse.', points:2 },
 		{ text:'Hagan una promesa pequeña y concreta para mañana.', points:2 },
+		// Nuevos retos
+		{ text:'Den un abrazo de 20 segundos en silencio.', points:1 },
+		{ text:'Hagan una lista de reproducción con 3 canciones que los conecten.', points:1 },
+		{ text:'Escriban en 1 minuto algo que agradecen del otro y léanlo.', points:2 },
+		{ text:'Elijan una foto favorita juntos y cuenten por qué la aman.', points:1 },
+		{ text:'Pregunten “¿Cómo puedo ayudarte esta semana?” y acuerden 1 acción.', points:2 },
+		{ text:'Caminen 5 minutos (aunque sea en casa) conversando de su día.', points:1 },
+		{ text:'Elijan una costumbre pequeña para mejorar su comunicación diaria.', points:2 },
+		{ text:'Descríbanse mutuamente usando 3 adjetivos positivos.', points:1 },
+		{ text:'Cuéntenle al otro un sueño/objetivo y definan el primer paso.', points:2 },
+		{ text:'Recuerden su primer encuentro/cita y digan qué sienten hoy.', points:1 },
+		{ text:'Elijan una noche de la semana para “mini-cita” en casa.', points:2 },
+		{ text:'Hagan 2 minutos de respiración juntos, tomados de la mano.', points:1 },
+		{ text:'Cada uno sugiere una nueva pregunta para el juego.', points:1 },
+		{ text:'Compartan un límite personal y una manera de respetarlo.', points:2 },
+		{ text:'Dejen una nota sorpresa para el otro (hoy o mañana).', points:1 },
 	]
 
 	function q(category, level, text){
@@ -343,6 +359,7 @@
 
 	function populateCategories(){
 		const cats = Array.from(new Set(deck.map(d=>d.category))).sort()
+		if(!els.categorySelect) return
 		els.categorySelect.innerHTML = ''
 		for(const c of cats){
 			const opt = document.createElement('option')
@@ -354,7 +371,7 @@
 	}
 
 	function getSelectedCategories(){
-		return Array.from(els.categorySelect.selectedOptions).map(o=>o.value)
+		return Array.from(els.categorySelect?.selectedOptions || []).map(o=>o.value)
 	}
 
 	function selectAllCategories(){
@@ -633,7 +650,7 @@
 	// PWA (manifest + service worker)
 	function registerPWA(){
 		if(!('serviceWorker' in navigator)) return
-		const swUrl = './sw.js?v=17'
+		const swUrl = './sw.js?v=20'
 		navigator.serviceWorker.register(swUrl).then(reg => {
 			// Intentar actualizar en segundo plano
 			try{ reg.update?.() }catch{}
