@@ -1,5 +1,5 @@
 // Service Worker simple para cache offline
-const CACHE = 'qpair-cache-v14';
+const CACHE = 'qpair-cache-v15';
 const ASSETS = [
   './',
   './index.html',

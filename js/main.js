@@ -81,6 +81,26 @@
 		q('Sueños y futuro','ligero','¿Qué pequeño sueño te gustaría cumplir juntos este año?'),
 		q('Sueños y futuro','reflexivo','¿Qué habilidad querrías que desarrollemos como pareja para el futuro?'),
 		q('Sueños y futuro','profundo','¿Qué visión a 5 años te emociona y qué pasos daríamos desde hoy?'),
+		// Gratitud y reconocimiento
+		q('Gratitud y reconocimiento','ligero','¿Qué detalle reciente mío te gustaría reconocer hoy?'),
+		q('Gratitud y reconocimiento','reflexivo','¿Qué acto de cuidado nuestro te marcó y por qué?'),
+		q('Gratitud y reconocimiento','profundo','¿Cómo podemos cultivar un hábito de gratitud en la relación?'),
+		// Creatividad y proyectos en común
+		q('Creatividad y proyectos en común','ligero','¿Qué proyecto pequeño haríamos juntos este mes?'),
+		q('Creatividad y proyectos en común','reflexivo','¿Qué rol creativo disfrutas más cuando colaboramos?'),
+		q('Creatividad y proyectos en común','profundo','¿Qué gran proyecto nos ilusiona y qué primer paso daríamos?'),
+		// Confianza y transparencia
+		q('Confianza y transparencia','ligero','¿Qué gesto te hace confiar más en mí?'),
+		q('Confianza y transparencia','reflexivo','¿Qué tema difícil podríamos hablar con más apertura?'),
+		q('Confianza y transparencia','profundo','¿Qué acuerdo fortalecería nuestra transparencia sin invadir espacios personales?'),
+		// Manejo del estrés y apoyo emocional
+		q('Manejo del estrés y apoyo emocional','ligero','¿Qué me ayuda a calmarte cuando estás estresado/a?'),
+		q('Manejo del estrés y apoyo emocional','reflexivo','¿Qué señales avisan que necesitas apoyo y cómo te lo doy mejor?'),
+		q('Manejo del estrés y apoyo emocional','profundo','¿Qué límites sanos nos protegen cuando la vida se pone intensa?'),
+		// Visión de familia y crianza
+		q('Visión de familia y crianza','ligero','¿Qué tradición familiar te gustaría mantener o crear?'),
+		q('Visión de familia y crianza','reflexivo','¿Qué valores queremos transmitir a futuros hijos/sobrinos/personas cercanas?'),
+		q('Visión de familia y crianza','profundo','¿Cómo imaginamos dividir cuidados y responsabilidades en una futura familia?'),
 	]
 
 	// Retos (challenges) — pueden dar puntos extra
@@ -536,7 +556,7 @@
 	// PWA (manifest + service worker)
 	function registerPWA(){
 		if(!('serviceWorker' in navigator)) return
-		const swUrl = './sw.js?v=14'
+		const swUrl = './sw.js?v=15'
 		navigator.serviceWorker.register(swUrl).then(reg => {
 			// Intentar actualizar en segundo plano
 			try{ reg.update?.() }catch{}
