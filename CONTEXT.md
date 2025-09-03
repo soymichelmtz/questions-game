@@ -25,21 +25,30 @@ Crear un "juego de preguntas para parejas" como app web estática, usable offlin
 - Turn cue: burbuja animada "Turno: [Nombre]" + chime corto en cada cambio de turno.
 - PWA: manifest + Service Worker con precache y runtime cache.
 
-## Cambios recientes (ago 2025)
+## Cambios recientes (sept 2025)
 - Gating estricto del UI de turno:
   - La cinta “Turno:” y el modal de turno solo aparecen si `session.active` y `session.namesConfirmed` son verdaderos, y ambos nombres están completos (no vacíos); además, el nombre del turno actual no puede estar vacío.
   - Se eliminaron los placeholders “—” del HTML para evitar “Turno: —”.
 - Inicio más robusto del modal de turno:
   - Se ocultan `#turnModal` y `#turnOverlay` inmediatamente tras obtener las referencias DOM (el script está al final del `<body>`).
   - Se retiró un IIFE de `DOMContentLoaded` que, encadenado tras un cierre de bloque, podía provocar `Uncaught TypeError: (intermediate value)(...) is not a function` en ciertos contextos.
+- Selección de categorías:
+  - Volvimos a selector múltiple (multi-select) con botones “Seleccionar todas” y “Limpiar”.
+- Retos ampliados:
+  - Se añadieron más retos (+1/+2) con foco en conexión rápida, gratitud y hábitos.
 - Service Worker endurecido y versionado:
-  - `CACHE = 'qpair-cache-v13'`; `ASSETS` incluye `./js/main.js?v=14`.
-  - Registro con `./sw.js?v=13` y recarga automática en `controllerchange`.
-  - Filtro de `fetch`: solo `GET`, solo `http/https`, ignora `chrome-extension:`; cachea solo same-origin; fallback a `index.html` en navegación offline.
+  - `CACHE = 'qpair-cache-v20'`; `ASSETS` incluye `./js/main.js?v=20`.
+  - Registro con `./sw.js?v=20` y recarga automática en `controllerchange`.
+  - Filtro de `fetch`: solo `GET`, solo `http/https`, ignora esquemas no soportados; cachea solo same-origin; fallback a `index.html` en navegación offline.
 - Tema claro/oscuro:
   - Toggle con persistencia en `localStorage` (`qpair:theme`) y etiquetas con emoji.
 - Señal de turno:
   - Burbuja más grande y chime breve ajustado.
+- Contenido:
+  - Todas las categorías cuentan con ≥5 preguntas; se añadió “Celos y seguridad”.
+- Repositorio e infraestructura:
+  - Se retiró la configuración de GitHub Pages sobrante.
+  - Se añadió `serve.ps1` para servir estáticamente en Windows PowerShell con fallback de puerto.
 
 ## Decisiones y detalles técnicos
 - Proyecto sin framework: HTML/CSS/JS puros.
@@ -58,17 +67,18 @@ Crear un "juego de preguntas para parejas" como app web estática, usable offlin
   - `safeOn()` para evitar errores en escuchas de eventos.
   - `escapeHtml()` para render de favoritas.
 - PWA y caché:
-  - Versiónado de JS con `?v=N` y de SW con `CACHE='qpair-cache-vN'` para romper caché cuando hay cambios.
+  - Versionado de JS con `?v=N` y de SW con `CACHE='qpair-cache-vN'` para romper caché cuando hay cambios (actual: v20).
 
 ## Troubleshooting rápido
 - Si ves UI de turno vacía al inicio: confirma que ambos nombres se hayan establecido en el modal de nombres y que “Comenzar” los haya guardado; de lo contrario, la cinta y el modal no aparecen por diseño.
 - Si algún cambio no se refleja: recarga dura 1–2 veces para que el SW nuevo tome control; como alternativa, borra datos del sitio y vuelve a abrir.
 
 ## Cómo correr
-- Recomendado (Service Worker activo):
+- Windows PowerShell (recomendado, con SW activo):
+  - Ejecuta `serve.ps1` en la carpeta del proyecto; abrirá `http://localhost:<puerto>` con fallback automático.
+- Alternativas:
   - `npx http-server -p 5501 -c-1 --silent` y abrir `http://localhost:5501`.
-- Alternativa rápida:
-  - Abrir `index.html` directamente (sin SW).
+  - `python -m http.server 5501` y abrir `http://127.0.0.1:5501/`.
 
 ## Próximos posibles mejoras
 - Ajustes finos del chime (volumen/tono) y opción para silenciar.

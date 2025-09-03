@@ -31,29 +31,35 @@ Notas importantes del modo sesión:
 - Para forzar actualización tras cambios: recarga dura 1-2 veces.
 
 Detalles actuales:
-- Cache: `qpair-cache-v13` con `./js/main.js?v=14` precacheado.
-- Registro del SW: `./sw.js?v=13` y autorrecarga al activarse uno nuevo.
-- El SW ignora métodos no-GET y esquemas no http/https (p. ej. `chrome-extension:`) y cachea solo same-origin.
+- Cache: `qpair-cache-v20` con `./js/main.js?v=20` precacheado.
+- Registro del SW: `./sw.js?v=20` y autorrecarga al activarse uno nuevo.
+- El SW ignora métodos no-GET y esquemas no http/https y cachea solo same-origin.
 
 ## Ejecutar localmente
-Aunque es estática y puede abrirse con doble click, se recomienda servir por HTTP para que el Service Worker funcione:
+Aun siendo estática, sirve por HTTP para habilitar el Service Worker.
 
-PowerShell (Windows):
+Opción 1 (Windows, incluido en repo):
 
 ```powershell
-# En la carpeta del proyecto
+./serve.ps1
+# Abre la URL que muestra (por ejemplo, http://localhost:5173 o el puerto siguiente libre)
+```
+
+Opción 2 (Node):
+
+```powershell
 npx --yes http-server -p 5501 -c-1 --silent
 # Abre http://localhost:5501
 ```
 
-Si prefieres Python:
+Opción 3 (Python):
 
 ```powershell
 python -m http.server 5501
 # Abre http://127.0.0.1:5501/
 ```
 
-Alternativa: abrir `index.html` directamente en el navegador si no necesitas SW.
+Alternativa: abrir `index.html` directamente si no necesitas SW.
 
 ## Estructura de archivos
 - `index.html`: UI principal y modales (instrucciones, nombres, turno).
@@ -61,6 +67,7 @@ Alternativa: abrir `index.html` directamente en el navegador si no necesitas SW.
 - `js/main.js`: lógica del juego (filtros, cola sin repetición, historial, favoritas, temporizador, sesión/retos, modales, toasts, chime de turno, PWA init).
 - `sw.js`: cacheo offline (ver `CACHE` y assets precacheados).
 - `manifest.json`: metadatos PWA.
+ - `serve.ps1`: servidor estático sencillo en PowerShell con fallback de puerto.
 
 ## Notas técnicas
 - Identificadores de preguntas aleatorios vía `crypto.getRandomValues` cuando está disponible.
