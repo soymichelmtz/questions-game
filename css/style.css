@@ -54,6 +54,8 @@ body{
 .control-group select[multiple]{ width:100%; min-height:8rem; border-radius:8px; border:1px solid var(--border); background:var(--surface); color:var(--text); padding:8px }
 .control-group select{ width:100%; border-radius:8px; border:1px solid var(--border); background:var(--surface); color:var(--text); padding:8px }
 .checkbox{ display:flex; align-items:center; gap:8px; color:var(--muted); margin-top:8px }
+.checkbox-list{ display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:8px; margin-top:6px }
+.checkbox-list label{ display:flex; align-items:center; gap:8px; background:var(--surface); border:1px solid var(--border); border-radius:8px; padding:8px }
 .control-row{ display:flex; gap:8px; margin-top:8px; flex-wrap:wrap }
 
 .timer-row{ display:flex; align-items:center; gap:10px; margin-top:8px }
