@@ -107,6 +107,77 @@
 		q('Celos y seguridad','reflexivo','¿Qué creencia sobre los celos hemos aprendido y queremos actualizar?'),
 		q('Celos y seguridad','reflexivo','¿Cómo diferenciamos una señal real de alerta de un miedo aprendido?'),
 		q('Celos y seguridad','profundo','¿Qué acuerdos nos ayudan a construir confianza incluso cuando aparecen celos?'),
+		// Extras: completar 5 por categoría
+		// Conocimiento mutuo (+1)
+		q('Conocimiento mutuo','ligero','¿Qué manía mía te parece entrañable?'),
+		// Recuerdos (+2)
+		q('Recuerdos','ligero','¿Qué foto nuestra te gustaría recrear y por qué?'),
+		q('Recuerdos','reflexivo','¿Qué momento pequeño recuerdas con mucho cariño y por qué?'),
+		// Futuro (+2)
+		q('Futuro','ligero','¿Qué hábito de salud o finanzas te gustaría construir conmigo?'),
+		q('Futuro','reflexivo','¿Qué cambio te ilusiona para el próximo año como pareja?'),
+		// Afecto (+2)
+		q('Afecto','ligero','¿Qué gesto cotidiano te hace sentir amor sin palabras?'),
+		q('Afecto','reflexivo','¿Cómo te gusta que te demuestre cariño en días difíciles?'),
+		// Valores (+2)
+		q('Valores','ligero','¿Qué valor te gustaría que cultiváramos más este mes?'),
+		q('Valores','reflexivo','¿Cómo manejamos cuando nuestros valores chocan?'),
+		// Diversión (+2)
+		q('Diversión','ligero','¿Qué plan improvisado haríamos esta semana?'),
+		q('Diversión','reflexivo','¿Qué actividad nos conecta especialmente y por qué?'),
+		// Comunicación (+2)
+		q('Comunicación','ligero','¿En qué momento del día conversamos mejor sobre temas importantes?'),
+		q('Comunicación','reflexivo','¿Qué señal te indica que solo necesitas ser escuchado/a sin soluciones?'),
+		// Intimidad (+2)
+		q('Intimidad','ligero','¿Qué ritual juntos te hace sentir más cerca de mí?'),
+		q('Intimidad','reflexivo','¿Qué conversación abriría más nuestra intimidad emocional?'),
+		// Planes (+3)
+		q('Planes','ligero','¿Qué tarea del hogar tomarías tú para aligerarnos la semana?'),
+		q('Planes','ligero','¿Qué micro-objetivo cumpliríamos juntos en 7 días?'),
+		q('Planes','reflexivo','¿Cómo priorizamos planes cuando ambos estamos ocupados?'),
+		// Finanzas (+3)
+		q('Finanzas','ligero','¿Qué ahorro pequeño implementaríamos este mes sin esfuerzo?'),
+		q('Finanzas','reflexivo','¿Cómo te sientes al hablar de gastos personales y comunes?'),
+		q('Finanzas','profundo','¿Qué principios seguiremos para decisiones de dinero importantes?'),
+		// Amistades y redes (+2)
+		q('Amistades y redes','ligero','¿Con qué amistades te gustaría vernos más seguido?'),
+		q('Amistades y redes','reflexivo','¿Cómo cuidamos límites saludables con nuestras amistades?'),
+		// Trabajo y propósito (+2)
+		q('Trabajo y propósito','ligero','¿Cómo te apoyo mejor en una semana laboral difícil?'),
+		q('Trabajo y propósito','reflexivo','¿Qué propósito compartido nos gustaría aportar desde nuestro trabajo?'),
+		// Rutinas y hogar (+2)
+		q('Rutinas y hogar','ligero','¿Qué rincón del hogar te gustaría mejorar conmigo?'),
+		q('Rutinas y hogar','reflexivo','¿Qué rutina de cierre del día nos vendría bien adoptar?'),
+		// Viajes y aventuras (+2)
+		q('Viajes y aventuras','ligero','¿Ciudad o naturaleza para el próximo viaje y por qué?'),
+		q('Viajes y aventuras','reflexivo','¿Qué tipo de aventura te ayudaría a salir de tu zona de confort?'),
+		// Conflictos y reconciliación (+2)
+		q('Conflictos y reconciliación','ligero','¿Qué palabra segura podemos usar para pausar una discusión?'),
+		q('Conflictos y reconciliación','reflexivo','¿Qué nos ayuda a reparar después de herirnos sin querer?'),
+		// Límites y acuerdos (+2)
+		q('Límites y acuerdos','ligero','¿Qué límite digital (móvil/redes) te gustaría acordar?'),
+		q('Límites y acuerdos','reflexivo','¿Qué acuerdo revisaríamos cada cierto tiempo para mantenerlo sano?'),
+		// Sexualidad e intimidad emocional (+2)
+		q('Sexualidad e intimidad emocional','ligero','¿Qué ambiente (luz, música, tiempo) te ayuda a conectar mejor?'),
+		q('Sexualidad e intimidad emocional','reflexivo','¿Qué conversación pendiente sobre intimidad te gustaría retomar con calma?'),
+		// Sueños y futuro (+2)
+		q('Sueños y futuro','ligero','¿Qué habilidad o hobby te gustaría aprender conmigo?'),
+		q('Sueños y futuro','reflexivo','¿Qué hito nos gustaría celebrar dentro de un año?'),
+		// Gratitud y reconocimiento (+2)
+		q('Gratitud y reconocimiento','ligero','¿Qué gesto mío te hizo sonreír esta semana?'),
+		q('Gratitud y reconocimiento','reflexivo','¿Cómo quieres que te exprese reconocimiento más seguido?'),
+		// Creatividad y proyectos en común (+2)
+		q('Creatividad y proyectos en común','ligero','¿Qué idea creativa nos divertiría prototipar en una tarde?'),
+		q('Creatividad y proyectos en común','reflexivo','¿Qué aprendemos de nuestras diferencias al crear juntos?'),
+		// Confianza y transparencia (+2)
+		q('Confianza y transparencia','ligero','¿Qué práctica simple refuerza nuestra confianza diaria?'),
+		q('Confianza y transparencia','reflexivo','¿Cómo prefieres que abordemos una duda o inseguridad?'),
+		// Manejo del estrés y apoyo emocional (+2)
+		q('Manejo del estrés y apoyo emocional','ligero','¿Qué autocuidado te funciona y cómo puedo apoyarlo?'),
+		q('Manejo del estrés y apoyo emocional','reflexivo','¿Qué hacemos bien y qué mejoraríamos para acompañarnos mejor?'),
+		// Visión de familia y crianza (+2)
+		q('Visión de familia y crianza','ligero','¿Qué recuerdos familiares te gustaría recrear juntos?'),
+		q('Visión de familia y crianza','reflexivo','¿Cómo equilibraríamos tiempo en pareja y en familia?'),
 	]
 
 	// Retos (challenges) — pueden dar puntos extra
@@ -562,7 +633,7 @@
 	// PWA (manifest + service worker)
 	function registerPWA(){
 		if(!('serviceWorker' in navigator)) return
-		const swUrl = './sw.js?v=16'
+		const swUrl = './sw.js?v=17'
 		navigator.serviceWorker.register(swUrl).then(reg => {
 			// Intentar actualizar en segundo plano
 			try{ reg.update?.() }catch{}
